@@ -1,28 +1,45 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useLoaderData } from 'react-router-dom'
 
 function Github() {
-    const data = useLoaderData()
-    // const [data, setData] = useState([])
-    // useEffect(() => {
-    //  fetch('https://api.github.com/users/hiteshchoudhary')
-    //  .then(response => response.json())
-    //  .then(data => {
-    //     console.log(data);
-    //     setData(data)
-    //  })
-    // }, [])
-    
+  const data = useLoaderData()
+
   return (
-    <div className='text-center m-4 bg-gray-600 text-white p-4 text-3xl'>Github followers: {data.followers}
-    <img src={data.avatar_url} alt="Git picture" width={300} />
+    <div className="flex flex-col items-center justify-center text-center m-6 p-6 bg-gray-700 text-white rounded-xl shadow-lg">
+      
+      <h1 className="text-3xl font-bold mb-4">
+        Github Followers: {data.followers}
+      </h1>
+
+      <img
+        src={data.avatar_url}
+        alt="Github Profile"
+        className="w-72 rounded-xl border-4 border-white"
+      />
+
+      <h2 className="text-2xl mt-4 font-semibold">
+        {data.name}
+      </h2>
+
+      <p className="text-lg text-gray-300">
+        @{data.login}
+      </p>
+
     </div>
   )
 }
 
 export default Github
 
+// Loader Function
 export const githubInfoLoader = async () => {
-    const response = await fetch('https://api.github.com/users/hiteshchoudhary')
-    return response.json()
+  const response = await fetch(
+    'https://api.github.com/users/mrsrivastavji'
+  )
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch Github data')
+  }
+
+  return response.json()
 }
